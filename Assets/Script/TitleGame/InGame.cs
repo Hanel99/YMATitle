@@ -48,14 +48,12 @@ public class InGame : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             // 좌 화살표 키를 누르면 이전 질문으로 이동
-            questionIndex = Mathf.Max(1, questionIndex - 1);
-            ChangeQuestion();
+            ChangeQuestion(Mathf.Max(1, questionIndex - 1));
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             // 우 화살표 키를 누르면 다음 질문으로 이동
-            questionIndex = Mathf.Min(textData.Count, questionIndex + 1);
-            ChangeQuestion();
+            ChangeQuestion(Mathf.Min(textData.Count, questionIndex + 1));
         }
         else if (Input.GetKeyDown(KeyCode.Return))
         {
@@ -69,8 +67,7 @@ public class InGame : MonoBehaviour
 
     public void OnClickNextQuestion()
     {
-        questionIndex = Mathf.Min(textData.Count, questionIndex + 1);
-        ChangeQuestion();
+        ChangeQuestion(Mathf.Min(textData.Count, questionIndex + 1));
     }
 
     public void OnClickTimer(float time)
@@ -90,6 +87,14 @@ public class InGame : MonoBehaviour
             inputField.text = "";
             return;
         }
+        if (inputField.text == "327")
+        {
+            EsterEgg.instance.SetForceActEsterEgg(true);
+            SoundManager.Instance.PlaySound(SoundType.eggSound);
+            LoadIntroLocalizationData();
+            inputField.text = "";
+            return;
+        }
 
         int index;
         if (int.TryParse(inputField.text, out index))
@@ -97,15 +102,20 @@ public class InGame : MonoBehaviour
             if (index <= 0) index = 1;
             if (index >= textData.Count) index = textData.Count - 1;
 
-            questionIndex = index;
-            ChangeQuestion();
+            ChangeQuestion(index);
             inputField.text = "";
         }
     }
 
 
-    void ChangeQuestion()
+    void ChangeQuestion(int nextQuestionIndex)
     {
+        if (EsterEgg.instance.IsEsterEggAniAction)
+            return;
+
+
+        questionIndex = nextQuestionIndex;
+
         if (questionIndex < textData.Count)
         {
             var targetData = this.textData.Find(x => x.No.Equals(questionIndex.ToString()));
@@ -174,7 +184,7 @@ public class InGame : MonoBehaviour
 
     public void LoadIntroLocalizationData()
     {
-        TextAsset ta = Resources.Load<TextAsset>("CSV/StringData");
+        TextAsset ta = ResourceManager.Instance.GetStringData();
         if (ta)
         {
             List<Dictionary<string, object>> csv = CSVReader.Read(ta);

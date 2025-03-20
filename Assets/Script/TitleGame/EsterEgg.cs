@@ -15,8 +15,13 @@ public class EsterEgg : MonoBehaviour
     readonly float duration = 1f;
     float tempTime = 0f;
 
+    bool forceActEsterEgg = false;
+    public bool ForceActEsterEgg => forceActEsterEgg;
+    public void SetForceActEsterEgg(bool show) => forceActEsterEgg = show;
+
     int imageIndex = 0;
-    bool isMove = false;
+    bool isEsterEggAniAction = false;
+    public bool IsEsterEggAniAction => isEsterEggAniAction;
 
 
     void Awake()
@@ -36,7 +41,7 @@ public class EsterEgg : MonoBehaviour
 
     public void OnClickEsterButton()
     {
-        if (isMove) return;
+        if (isEsterEggAniAction) return;
 
         isClick = true;
         SoundManager.Instance.PlaySound(SoundType.eggSound);
@@ -54,7 +59,7 @@ public class EsterEgg : MonoBehaviour
         clickCount = 0;
 
         movingImage.gameObject.SetActive(true);
-        isMove = true;
+        isEsterEggAniAction = true;
 
         SoundManager.Instance.PlaySound(SoundType.marioGalaxy);
         imageIndex = Random.Range(0, showHanel ? ResourceManager.Instance.HanelImageResources.Count : ResourceManager.Instance.MMGImageResources.Count);
@@ -68,7 +73,7 @@ public class EsterEgg : MonoBehaviour
             movingImage.transform.DOLocalMoveX(-1550f, 5f).SetEase(Ease.Linear).OnComplete(() =>
             {
                 movingImage.gameObject.SetActive(false);
-                isMove = false;
+                isEsterEggAniAction = false;
             });
         }
         else
@@ -77,7 +82,7 @@ public class EsterEgg : MonoBehaviour
             movingImage.transform.DOLocalMoveY(1000f, 5f).SetEase(Ease.Linear).OnComplete(() =>
             {
                 movingImage.gameObject.SetActive(false);
-                isMove = false;
+                isEsterEggAniAction = false;
             });
         }
     }

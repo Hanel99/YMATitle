@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,6 +21,8 @@ public class ResourceManager : MonoBehaviour
     public List<AudioClip> AudioResources = new List<AudioClip>();
     public List<Sprite> MMGImageResources = new List<Sprite>();
     public List<Sprite> HanelImageResources = new List<Sprite>();
+    public TextAsset[] stringData;
+
 
 
     public Sprite GetImage(QType type)
@@ -61,5 +64,19 @@ public class ResourceManager : MonoBehaviour
         return null;
     }
 
+    public TextAsset GetStringData()
+    {
 
+
+        if (EsterEgg.instance.ForceActEsterEgg || IsTodayMarch26())
+            return stringData[1];
+        else
+            return stringData[0];
+    }
+
+    bool IsTodayMarch26()
+    {
+        DateTime today = DateTime.Today;
+        return today.Month >= 3 && today.Day >= 26;
+    }
 }
