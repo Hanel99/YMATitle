@@ -74,7 +74,7 @@ public class Timer : MonoBehaviour
         if (isTimerAct && leftTime >= 0)
         {
             leftTime -= Time.deltaTime;
-            timerText.text = $"{leftTime.ToString("F1")} 초";
+            timerText.text = $"{leftTime:F1} 초";
 
             // 타이머가 종료에 가까워질수록 텍스트 색상이 빨간색으로 변함
             float t = Mathf.Clamp01(1 - (leftTime / setTimerTime));

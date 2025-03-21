@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using DG.Tweening;
+using Coffee.UIExtensions;
 
 
 public class InGame : MonoBehaviour
@@ -10,6 +12,7 @@ public class InGame : MonoBehaviour
     public Timer timer;
     public Text titleIndexText;
     public Text titleText;
+    public UIParticle finishParticle;
 
 
     public Image bg;
@@ -38,6 +41,7 @@ public class InGame : MonoBehaviour
         LoadIntroLocalizationData();
         titleText.text = "";
         titleIndexText.text = "";
+        finishParticle.gameObject.SetActive(false);
     }
 
 
@@ -120,9 +124,19 @@ public class InGame : MonoBehaviour
         {
             var targetData = this.textData.Find(x => x.No.Equals(questionIndex.ToString()));
 
+            titleText.transform.DOKill();
+            titleIndexText.transform.DOKill();
+            titleText.transform.DOScale(1f, 0.4f).From(1.5f).SetEase(Ease.InOutBack);
+            titleIndexText.transform.DOScale(1f, 0.4f).From(0.5f).SetEase(Ease.OutBack);
+
             titleText.text = RegexReplace(targetData.Title);
             titleIndexText.text = $"No.{questionIndex}";
             ChangeImage(targetData.Type);
+
+            finishParticle.gameObject.SetActive(targetData.Type == QType.F);
+            if (targetData.Type == QType.F)
+                finishParticle.Play();
+
 
             if (targetData.Type >= QType.F && targetData.Type <= QType.G)
             {

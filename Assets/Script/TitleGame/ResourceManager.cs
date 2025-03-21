@@ -66,8 +66,6 @@ public class ResourceManager : MonoBehaviour
 
     public TextAsset GetStringData()
     {
-
-
         if (EsterEgg.instance.ForceActEsterEgg || IsTodayMarch26())
             return stringData[1];
         else
