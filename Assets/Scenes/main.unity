@@ -597,6 +597,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b218572ca788025459edb949755a0103, type: 3}
   - {fileID: 8300000, guid: 8342bfdfb6d64af4f95ee3812cec21a2, type: 3}
   - {fileID: 8300000, guid: dafc29c93861cbe4a8ff3ef63e5afa8e, type: 3}
+  - {fileID: 8300000, guid: 956e72ba761f8f74b8e13b42e5152782, type: 3}
   MMGImageResources:
   - {fileID: -6991931465233978255, guid: ea76074334c8d0b4cb0d154710e2689d, type: 3}
   - {fileID: 1781728936126490398, guid: 9ce4f24ad380a2142b6cd90962817132, type: 3}

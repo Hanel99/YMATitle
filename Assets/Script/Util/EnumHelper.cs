@@ -23,5 +23,6 @@ public enum SoundType
     NextQuestion,
     eggSound,
     marioGalaxy,
+    yahaha,
 
 }
