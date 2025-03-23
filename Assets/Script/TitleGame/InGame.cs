@@ -12,6 +12,7 @@ public class InGame : MonoBehaviour
     public Timer timer;
     public Text titleIndexText;
     public Text titleText;
+    public GameObject nextButton;
     public UIParticle finishParticle;
 
 
@@ -144,11 +145,13 @@ public class InGame : MonoBehaviour
                 titleIndexText.text = "";
                 timer.ResetTimer();
                 timer.ShowTimer(false);
+                nextButton.SetActive(false);
             }
             else
             {
                 timer.SetTimer(targetData.Time, null);
                 timer.ShowTimer(true);
+                nextButton.SetActive(true);
 
                 if (targetData.Type == QType.H)
                     EsterEgg.instance.ActionEsterEgg(true);

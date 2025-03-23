@@ -540,6 +540,7 @@ MonoBehaviour:
   timer: {fileID: 263291691}
   titleIndexText: {fileID: 1752630829}
   titleText: {fileID: 805856967}
+  nextButton: {fileID: 1903756640}
   finishParticle: {fileID: 1561451753}
   bg: {fileID: 2035160880}
 --- !u!4 &263291690
