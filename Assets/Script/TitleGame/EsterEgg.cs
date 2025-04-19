@@ -15,9 +15,6 @@ public class EsterEgg : MonoBehaviour
     readonly float duration = 1f;
     float tempTime = 0f;
 
-    bool forceActEsterEgg = false;
-    public bool ForceActEsterEgg => forceActEsterEgg;
-    public void SetForceActEsterEgg(bool show) => forceActEsterEgg = show;
 
     int imageIndex = 0;
     bool isEsterEggAniAction = false;

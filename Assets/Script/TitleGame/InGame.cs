@@ -94,7 +94,6 @@ public class InGame : MonoBehaviour
         }
         if (inputField.text == "327")
         {
-            EsterEgg.instance.SetForceActEsterEgg(true);
             SoundManager.Instance.PlaySound(SoundType.yahaha);
             LoadIntroLocalizationData();
             inputField.text = "";
