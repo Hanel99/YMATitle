@@ -21,7 +21,6 @@ public class ResourceManager : MonoBehaviour
     public List<AudioClip> AudioResources = new List<AudioClip>();
     public List<Sprite> MMGImageResources = new List<Sprite>();
     public List<Sprite> HanelImageResources = new List<Sprite>();
-    public TextAsset stringData;
 
 
 
@@ -63,15 +62,4 @@ public class ResourceManager : MonoBehaviour
         }
         return null;
     }
-
-    public TextAsset GetStringData()
-    {
-        return stringData;
-    }
-
-    // bool IsTodayMarch26()
-    // {
-    //     DateTime today = DateTime.Today;
-    //     return today.Month >= 3 && today.Day >= 26;
-    // }
 }

@@ -11,7 +11,7 @@ public class CSVReader
 
     public static List<Dictionary<string, object>> Read(string file, bool isAssetDataLoading = false)
     {
-        TextAsset data = 
+        TextAsset data =
             //isAssetDataLoading  ? AssetDatabase.LoadAssetAtPath<TextAsset>(file) : 
             Resources.Load<TextAsset>(file);
 
@@ -20,12 +20,23 @@ public class CSVReader
 
     public static List<Dictionary<string, object>> Read(TextAsset data)
     {
+        var lines = Regex.Split(data.text, LINE_SPLIT_RE);
+        return ReadProcess(lines);
+    }
+
+
+    public static List<Dictionary<string, object>> Read(string textData)
+    {
+        var lines = Regex.Split(textData, LINE_SPLIT_RE);
+        return ReadProcess(lines);
+    }
+
+    public static List<Dictionary<string, object>> ReadProcess(string[] lines)
+    {
         const NumberStyles style = NumberStyles.Any;
         var invariantCulture = CultureInfo.InvariantCulture;
-
         var list = new List<Dictionary<string, object>>();
 
-        var lines = Regex.Split(data.text, LINE_SPLIT_RE);
         if (lines.Length <= 1) return list;
 
         var header = Regex.Split(lines[0], SPLIT_RE);
@@ -41,7 +52,7 @@ public class CSVReader
                 //value = value.TrimStart(TRIM_CHARS).TrimEnd(TRIM_CHARS).Replace("\\", "");
                 value = value.TrimStart(TRIM_CHARS).TrimEnd(TRIM_CHARS);
                 object finalvalue = value;
-                if (int.TryParse(value, style, invariantCulture, out int  n))
+                if (int.TryParse(value, style, invariantCulture, out int n))
                 {
                     finalvalue = n;
                 }

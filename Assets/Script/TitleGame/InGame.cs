@@ -3,6 +3,8 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using DG.Tweening;
 using Coffee.UIExtensions;
+using System.IO;
+
 
 
 public class InGame : MonoBehaviour
@@ -14,6 +16,9 @@ public class InGame : MonoBehaviour
     public Text titleText;
     public GameObject nextButton;
     public UIParticle finishParticle;
+
+    public GameObject LoadSheetDataButton;
+
 
 
     public Image bg;
@@ -117,6 +122,7 @@ public class InGame : MonoBehaviour
         if (EsterEgg.instance.IsEsterEggAniAction)
             return;
 
+        LoadSheetDataButton.SetActive(false);
 
         questionIndex = nextQuestionIndex;
 
@@ -200,11 +206,29 @@ public class InGame : MonoBehaviour
 
     public void LoadIntroLocalizationData()
     {
-        TextAsset ta = ResourceManager.Instance.GetStringData();
-        if (ta)
+        var ta = LoadCSVDataManager.Instance.LoadDataFromResources("StringData");
+        List<Dictionary<string, object>> csv = CSVReader.Read(ta);
+        textData = TextMetaData.Create(csv);
+
+        // LoadCSVDataManager.Instance.LoadDataFromStreamingAsset("StringData", (ta) =>
+        // {
+        //     List<Dictionary<string, object>> csv = CSVReader.Read(ta);
+        //     textData = TextMetaData.Create(csv);
+        // });
+
+        // LoadCSVDataManager.Instance.LoadDataFromGoogleSheet((data) =>
+        // {
+        //     List<Dictionary<string, object>> csv = CSVReader.Read(data);
+        //     textData = TextMetaData.Create(csv);
+        // });
+    }
+
+    public void OnClickLoadGoogleSheetData()
+    {
+        LoadCSVDataManager.Instance.LoadDataFromGoogleSheet((data) =>
         {
-            List<Dictionary<string, object>> csv = CSVReader.Read(ta);
+            List<Dictionary<string, object>> csv = CSVReader.Read(data);
             textData = TextMetaData.Create(csv);
-        }
+        });
     }
 }
